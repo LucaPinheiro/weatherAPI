@@ -1,4 +1,3 @@
-// main.js
 import { getCoordinates, getCurrentConditions } from "./app.js";
 
 document.getElementById("consultButton").addEventListener("click", getWeather);

@@ -1,4 +1,3 @@
-// app.js
 const apiKey = "ef0b0973b783e0614ac87612ec04344b";
 
 export async function getCoordinates(cityName) {

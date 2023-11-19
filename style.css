@@ -14,7 +14,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-top: 60px; /* Ajuste de margem para evitar sobreposição com o cabeçalho */
+    margin-top: 60px; 
 }
 
 label {
@@ -59,7 +59,7 @@ button:hover {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000; /* Garante que o cabeçalho esteja acima de outros elementos */
+    z-index: 1000; 
 }
 
 .header h1 {
@@ -74,7 +74,7 @@ button:hover {
     position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 1000; /* Garante que o rodapé esteja acima de outros elementos */
+    z-index: 1000; 
 }
 
 @media (max-width: 768px) {
