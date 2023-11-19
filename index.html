@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Consulta Climática</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1>Consulta Climática e Localização</h1>
+    </header>
+
+    <div class="container">
+        <h1>Consulta Climática</h1>
+        <label for="cityInput">Digite o nome da cidade:</label>
+        <input type="text" id="cityInput" placeholder="Ex: São Paulo">
+        <button id="consultButton">Consultar</button>
+
+        <div id="resultContainer" class="hidden">
+            <h2>Resultados:</h2>
+            <p id="coordinates"></p>
+            <p id="conditions"></p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Desenvolvido por Luca Pinheiro Gomes</p>
+    </footer>
+
+    <script src="app.js" type="module"></script>
+    <script src="main.js" type="module"></script>
+</body>
+
+</html>
