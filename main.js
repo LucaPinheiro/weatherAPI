@@ -12,28 +12,60 @@ async function getWeather() {
   }
 
   try {
-    const coordinates = await getCoordinates(cityName);
-    const conditions = await getCurrentConditions(
-      coordinates.lat,
-      coordinates.lon
-    );
-    displayResults(coordinates, conditions);
+    const data = await getWeatherData(cityName);
+    displayResults(data);
     document.getElementById("resultContainer").classList.remove("hidden");
   } catch (error) {
     console.error("Erro no aplicativo:", error.message);
   }
 }
 
-function displayResults(coordinates, conditions) {
+async function getWeatherData(cityName) {
+  const coordinates = await getCoordinates(cityName);
+  const conditions = await getCurrentConditions(
+    coordinates.lat,
+    coordinates.lon
+  );
+  return { coordinates, conditions };
+}
+
+function displayResults(data) {
   const coordinatesElement = document.getElementById("coordinates");
   const conditionsElement = document.getElementById("conditions");
+  const temperatureElement = document.getElementById("temperature");
+  const humidityElement = document.getElementById("humidity");
+  const pressureElement = document.getElementById("pressure");
+  const windElement = document.getElementById("wind");
 
-  coordinatesElement.textContent = `Coordenadas: Latitude ${coordinates.lat}, Longitude ${coordinates.lon}`;
+  coordinatesElement.textContent = `Coordenadas: Latitude ${data.coordinates.lat}, Longitude ${data.coordinates.lon}`;
+  conditionsElement.textContent = `Condições Atuais: ${data.conditions.description}`;
 
-  const feelsLike =
-    conditions.feels_like !== undefined
-      ? conditions.feels_like
-      : "Dados não disponíveis";
+  temperatureElement.textContent = `Temperatura Atual: ${
+    data.conditions.main?.temp
+      ? convertKelvinToCelsius(data.conditions.main.temp) + "°C"
+      : "Dados não disponíveis"
+  }`;
+  humidityElement.textContent = `Umidade: ${
+    data.conditions.main?.humidity
+      ? data.conditions.main.humidity + "%"
+      : "Dados não disponíveis"
+  }`;
+  pressureElement.textContent = `Pressão Atmosférica: ${
+    data.conditions.main?.pressure
+      ? data.conditions.main.pressure + " hPa"
+      : "Dados não disponíveis"
+  }`;
+  windElement.textContent = `Velocidade do Vento: ${
+    data.conditions.wind?.speed
+      ? data.conditions.wind.speed + " m/s"
+      : "Dados não disponíveis"
+  }, Direção do Vento: ${
+    data.conditions.wind?.deg
+      ? data.conditions.wind.deg + "°"
+      : "Dados não disponíveis"
+  }`;
+}
 
-  conditionsElement.textContent = `Condições Atuais: Sensação Térmica ${feelsLike}, Descrição ${conditions.description}`;
+function convertKelvinToCelsius(kelvin) {
+  return (kelvin - 273.15).toFixed(2);
 }
