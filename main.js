@@ -26,7 +26,7 @@ async function getWeatherData(cityName) {
     coordinates.lat,
     coordinates.lon
   );
-  return { coordinates, conditions };
+  return { coord: coordinates, ...conditions };
 }
 
 function displayResults(data, cityName) {
@@ -38,37 +38,32 @@ function displayResults(data, cityName) {
   const windElement = document.getElementById("wind");
   const cityCountryElement = document.getElementById("cityCountry");
 
-  coordinatesElement.textContent = `Coordenadas: Latitude ${data.coordinates.lat}, Longitude ${data.coordinates.lon}`;
-  conditionsElement.textContent = `Condições Atuais: ${data.conditions.description}`;
+  coordinatesElement.textContent = `Coordenadas: Latitude ${data.coord.lat}, Longitude ${data.coord.lon}`;
+
+  if (data.weather && data.weather.length > 0) {
+    conditionsElement.textContent = `Condições Atuais: ${data.weather[0].description}`;
+  } else {
+    conditionsElement.textContent = "Dados não disponíveis";
+  }
 
   temperatureElement.textContent = `Temperatura Atual: ${
-    data.conditions.main?.temp
-      ? convertKelvinToCelsius(data.conditions.main.temp) + "°C"
+    data.main?.temp
+      ? convertKelvinToCelsius(data.main.temp) + "°C"
       : "Dados não disponíveis"
   }`;
   humidityElement.textContent = `Umidade: ${
-    data.conditions.main?.humidity
-      ? data.conditions.main.humidity + "%"
-      : "Dados não disponíveis"
-  }`;
+    data.main?.humidity || "Dados não disponíveis"
+  }%`;
   pressureElement.textContent = `Pressão Atmosférica: ${
-    data.conditions.main?.pressure
-      ? data.conditions.main.pressure + " hPa"
-      : "Dados não disponíveis"
-  }`;
+    data.main?.pressure || "Dados não disponíveis"
+  } hPa`;
   windElement.textContent = `Velocidade do Vento: ${
-    data.conditions.wind?.speed
-      ? data.conditions.wind.speed + " m/s"
-      : "Dados não disponíveis"
-  }, Direção do Vento: ${
-    data.conditions.wind?.deg
-      ? data.conditions.wind.deg + "°"
-      : "Dados não disponíveis"
-  }`;
+    data.wind?.speed || "Dados não disponíveis"
+  } m/s, Direção do Vento: ${data.wind?.deg || "Dados não disponíveis"}`;
 
   cityCountryElement.textContent = `Cidade: ${capitalizeFirstLetter(
     cityName
-  )}`;
+  )}, País: ${data.sys?.country || "Dados não disponíveis"}`;
 }
 
 function convertKelvinToCelsius(kelvin) {

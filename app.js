@@ -14,17 +14,21 @@ export async function getCoordinates(cityName) {
   }
 }
 
-export async function getCurrentConditions(latitude, longitude) {
+export async function getCurrentConditions(lat, lon) {
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+  
   try {
-    const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
-    );
+    const response = await fetch(url);
     const data = await response.json();
-    const { feels_like, weather } = data;
-    const description = weather[0].description;
-    return { feels_like, description };
+    console.log(data);
+
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.message || "Erro ao obter condições climáticas.");
+    }
   } catch (error) {
-    console.error("Erro ao obter condições atuais:", error.message);
-    throw error;
+    throw new Error("Erro ao conectar-se à API de condições climáticas.");
   }
 }
