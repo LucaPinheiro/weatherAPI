@@ -81,6 +81,41 @@ button:hover {
     z-index: 1000;
 }
 
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+   
+}
+
+.last-searches {
+    margin-top: 30px;
+}
+
+.last-searches h2 {
+    margin-bottom: 10px;
+}
+
+.last-searches ul {
+    list-style: none;
+    padding: 0;
+}
+
+.last-searches li {
+    margin-bottom: 5px;
+    cursor: pointer;
+    color: #3498db;
+}
+
+.last-searches li:hover {
+    text-decoration: underline;
+}
+
+
+
 @media (max-width: 768px) {
     .header {
         padding: 15px;

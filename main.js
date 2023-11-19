@@ -64,6 +64,40 @@ function displayResults(data, cityName) {
   cityCountryElement.textContent = `Cidade: ${capitalizeFirstLetter(
     cityName
   )}, País: ${data.sys?.country || "Dados não disponíveis"}`;
+
+  saveRecentSearch(cityName);
+
+  displayLastSearches();
+}
+
+function saveRecentSearch(cityName) {
+  const recentSearches = getRecentSearches();
+  recentSearches.unshift(cityName);
+  localStorage.setItem(
+    "recentSearches",
+    JSON.stringify(recentSearches.slice(0, 5))
+  ); 
+}
+
+function getRecentSearches() {
+  return JSON.parse(localStorage.getItem("recentSearches")) || [];
+}
+
+function displayLastSearches() {
+  const lastSearchList = document.getElementById("lastSearchList");
+  lastSearchList.innerHTML = "";
+
+  const recentSearches = getRecentSearches();
+  for (const search of recentSearches) {
+    const listItem = document.createElement("li");
+    listItem.textContent = search;
+    listItem.addEventListener("click", () => {
+      document.getElementById("cityInput").value = search;
+      getWeather();
+    });
+
+    lastSearchList.appendChild(listItem);
+  }
 }
 
 function convertKelvinToCelsius(kelvin) {
