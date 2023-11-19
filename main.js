@@ -13,7 +13,7 @@ async function getWeather() {
 
   try {
     const data = await getWeatherData(cityName);
-    displayResults(data);
+    displayResults(data, cityName);
     document.getElementById("resultContainer").classList.remove("hidden");
   } catch (error) {
     console.error("Erro no aplicativo:", error.message);
@@ -29,13 +29,14 @@ async function getWeatherData(cityName) {
   return { coordinates, conditions };
 }
 
-function displayResults(data) {
+function displayResults(data, cityName) {
   const coordinatesElement = document.getElementById("coordinates");
   const conditionsElement = document.getElementById("conditions");
   const temperatureElement = document.getElementById("temperature");
   const humidityElement = document.getElementById("humidity");
   const pressureElement = document.getElementById("pressure");
   const windElement = document.getElementById("wind");
+  const cityCountryElement = document.getElementById("cityCountry");
 
   coordinatesElement.textContent = `Coordenadas: Latitude ${data.coordinates.lat}, Longitude ${data.coordinates.lon}`;
   conditionsElement.textContent = `Condições Atuais: ${data.conditions.description}`;
@@ -64,8 +65,20 @@ function displayResults(data) {
       ? data.conditions.wind.deg + "°"
       : "Dados não disponíveis"
   }`;
+
+  cityCountryElement.textContent = `Cidade: ${capitalizeFirstLetter(
+    cityName
+  )}`;
 }
 
 function convertKelvinToCelsius(kelvin) {
   return (kelvin - 273.15).toFixed(2);
+}
+
+function capitalizeFirstLetter(string) {
+  return string
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
