@@ -6,6 +6,8 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
@@ -14,7 +16,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-top: 60px;
+    margin-top: 440px;
+    margin-bottom: 80px;
 }
 
 label {
@@ -60,7 +63,7 @@ button:hover {
     color: #fff;
     text-align: center;
     padding: 20px;
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     z-index: 1000;
@@ -75,20 +78,10 @@ button:hover {
     color: #fff;
     text-align: center;
     padding: 10px;
-    position: fixed;
+    position: sticky;
     bottom: 0;
     width: 100%;
     z-index: 1000;
-}
-
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-bottom: 20px;
-   
 }
 
 .last-searches {
@@ -113,8 +106,6 @@ button:hover {
 .last-searches li:hover {
     text-decoration: underline;
 }
-
-
 
 @media (max-width: 768px) {
     .header {
